@@ -8,7 +8,12 @@ class Portfolio {
   }
 
   sell(symbol, shares) {
-    this.shares.set(symbol, this.shares.get(symbol) - shares);
+    const remaining = this.shares.get(symbol) - shares;
+    if (remaining === 0) {
+      this.shares.delete(symbol);
+    } else {
+      this.shares.set(symbol, remaining);
+    }
   }
 
   symbolCount() {

@@ -65,4 +65,17 @@ describe("Portfolio", () => {
     portfolio.buy("GME", 5);
     expect(portfolio.symbolCount()).toBe(1);
   });
+
+  test("selling all shares removes the symbol", () => {
+    portfolio.buy("GME", 5);
+    portfolio.sell("GME", 5);
+    expect(portfolio.holdings()).toEqual({});
+    expect(portfolio.symbolCount()).toBe(0);
+  });
+
+  test("portfolio is empty after selling everything it owned", () => {
+    portfolio.buy("GME", 5);
+    portfolio.sell("GME", 5);
+    expect(portfolio.isEmpty()).toBe(true);
+  });
 });
