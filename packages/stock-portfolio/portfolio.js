@@ -9,6 +9,9 @@ class Portfolio {
 
   sell(symbol, shares) {
     const remaining = this.shares.get(symbol) - shares;
+    if (!(remaining >= 0)) {
+      throw new Error("Not possible to sell this number of shares.");
+    }
     if (remaining === 0) {
       this.shares.delete(symbol);
     } else {

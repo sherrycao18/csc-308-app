@@ -94,4 +94,28 @@ describe("Portfolio", () => {
     portfolio.sell("GME", 5);
     expect(portfolio.sharesOf("GME")).toBe(0);
   });
+
+  test("selling more shares than owned throws an error", () => {
+    portfolio.buy("GME", 5);
+    expect(() => portfolio.sell("GME", 6)).toThrow(
+      "Not possible to sell this number of shares."
+    );
+  });
+
+  test("selling a symbol that is not owned throws an error", () => {
+    expect(() => portfolio.sell("AAPL", 1)).toThrow(
+      "Not possible to sell this number of shares."
+    );
+  });
+
+  test("a failed sale leaves the portfolio unchanged", () => {
+    portfolio.buy("GME", 5);
+    expect(() => portfolio.sell("GME", 6)).toThrow();
+    expect(portfolio.holdings()).toEqual({ GME: 5 });
+  });
+
+  test("selling exactly the shares owned is allowed", () => {
+    portfolio.buy("GME", 5);
+    expect(() => portfolio.sell("GME", 5)).not.toThrow();
+  });
 });
