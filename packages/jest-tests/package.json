@@ -1,0 +1,12 @@
+{
+  "name": "jest-tests",
+  "version": "1.0.0",
+  "main": "sample-functions.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
