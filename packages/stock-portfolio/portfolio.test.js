@@ -119,3 +119,22 @@ describe("Portfolio", () => {
     expect(() => portfolio.sell("GME", 5)).not.toThrow();
   });
 });
+
+/*
+ * Reflection on TDD
+ *
+ * Yes, I followed the test-first approach for all eight increments. For each
+ * one I wrote the failing test first, ran Jest to watch it fail (red), wrote
+ * only enough production code to make it pass (green), and committed before
+ * moving on, so the git history shows the cycle increment by increment. The
+ * "minimum real code" rule was the hardest part to stick to: it was tempting
+ * to write sell() with the zero-share removal and the error check from the
+ * start, but holding back meant each rule (2.6, 2.8) only appeared once a
+ * test demanded it. The refactor step at the end let me clean up sell() and
+ * pull the error message into a constant with the tests as a safety net.
+ * My opinion is that TDD felt slow at first, but it kept each change small,
+ * caught mistakes immediately (for example, an unowned symbol in sell() gave
+ * NaN until a test forced me to handle it), and left me with a test suite I
+ * trust. I would use it for logic-heavy code like this, though I would
+ * probably relax it for throwaway or UI-heavy code.
+ */
