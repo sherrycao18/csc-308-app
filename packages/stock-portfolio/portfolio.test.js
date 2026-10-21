@@ -49,4 +49,20 @@ describe("Portfolio", () => {
     portfolio.sell("RBLX", 4);
     expect(portfolio.holdings()).toEqual({ GME: 5, RBLX: 6 });
   });
+
+  test("counts unique ticker symbols, not shares", () => {
+    portfolio.buy("GME", 5);
+    portfolio.buy("RBLX", 10);
+    expect(portfolio.symbolCount()).toBe(2);
+  });
+
+  test("counts zero symbols for an empty portfolio", () => {
+    expect(portfolio.symbolCount()).toBe(0);
+  });
+
+  test("buying more of a symbol does not change the symbol count", () => {
+    portfolio.buy("GME", 5);
+    portfolio.buy("GME", 5);
+    expect(portfolio.symbolCount()).toBe(1);
+  });
 });
