@@ -80,13 +80,13 @@ describe("containsNumbers", () => {
   });
 
   /*
-   * BUG FOUND in containsNumbers: the implementation uses
+   * BUG FOUND in containsNumbers: the original implementation used
    * !isNaN(text.charAt(i)). isNaN() coerces its argument with Number(), and
-   * Number(" ") is 0, so a whitespace character is treated as a digit.
-   * Any string containing a space, tab or newline therefore returns true
-   * even when it has no digits. The three tests below expect the correct
-   * answer (false) and FAIL against the current implementation, which is
-   * how the test suite catches the bug.
+   * Number(" ") is 0, so a whitespace character was treated as a digit.
+   * Any string containing a space, tab or newline returned true even when
+   * it had no digits. The three tests below failed against the original
+   * implementation, which is how the suite caught the bug. It is fixed by
+   * testing each character with /\d/ instead.
    */
   test("BUG: a string with a space but no digits should be false", () => {
     expect(myFunctions.containsNumbers("hello world")).toBe(false);
