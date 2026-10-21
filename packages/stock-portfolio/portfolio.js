@@ -16,6 +16,10 @@ class Portfolio {
     }
   }
 
+  sharesOf(symbol) {
+    return this.shares.get(symbol) || 0;
+  }
+
   symbolCount() {
     return this.shares.size;
   }

@@ -78,4 +78,20 @@ describe("Portfolio", () => {
     portfolio.sell("GME", 5);
     expect(portfolio.isEmpty()).toBe(true);
   });
+
+  test("answers how many shares exist for a symbol", () => {
+    portfolio.buy("GME", 5);
+    portfolio.buy("RBLX", 10);
+    expect(portfolio.sharesOf("RBLX")).toBe(10);
+  });
+
+  test("answers zero for a symbol that is not in the portfolio", () => {
+    expect(portfolio.sharesOf("AAPL")).toBe(0);
+  });
+
+  test("answers zero for a symbol whose shares were all sold", () => {
+    portfolio.buy("GME", 5);
+    portfolio.sell("GME", 5);
+    expect(portfolio.sharesOf("GME")).toBe(0);
+  });
 });
