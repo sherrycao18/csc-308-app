@@ -9,6 +9,16 @@ function MyApp() {
     return fetch("http://localhost:8000/users");
   }
 
+  function postUser(person) {
+    return fetch("http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(person)
+    });
+  }
+
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
@@ -26,7 +36,16 @@ function MyApp() {
   }
 
   function updateList(person) {
-    setCharacters([...characters, person]);
+    postUser(person)
+      .then((res) => {
+        if (res.status === 201) return res.json();
+      })
+      .then((newUser) => {
+        if (newUser) setCharacters([...characters, newUser]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
