@@ -1,16 +1,18 @@
+const OVERSELL_ERROR = "Not possible to sell this number of shares.";
+
 class Portfolio {
   constructor() {
     this.shares = new Map();
   }
 
   buy(symbol, shares) {
-    this.shares.set(symbol, (this.shares.get(symbol) || 0) + shares);
+    this.shares.set(symbol, this.sharesOf(symbol) + shares);
   }
 
   sell(symbol, shares) {
-    const remaining = this.shares.get(symbol) - shares;
-    if (!(remaining >= 0)) {
-      throw new Error("Not possible to sell this number of shares.");
+    const remaining = this.sharesOf(symbol) - shares;
+    if (remaining < 0) {
+      throw new Error(OVERSELL_ERROR);
     }
     if (remaining === 0) {
       this.shares.delete(symbol);
