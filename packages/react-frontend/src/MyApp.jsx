@@ -19,6 +19,12 @@ function MyApp() {
     });
   }
 
+  function deleteUser(id) {
+    return fetch(`http://localhost:8000/users/${id}`, {
+      method: "DELETE"
+    });
+  }
+
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
@@ -29,10 +35,16 @@ function MyApp() {
   }, []);
 
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
-    });
-    setCharacters(updated);
+    const id = characters[index].id;
+    deleteUser(id)
+      .then((res) => {
+        if (res.status === 204) {
+          setCharacters(characters.filter((character, i) => i !== index));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function updateList(person) {
