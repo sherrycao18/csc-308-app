@@ -1,0 +1,12 @@
+{
+  "name": "stock-portfolio",
+  "version": "1.0.0",
+  "main": "portfolio.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
