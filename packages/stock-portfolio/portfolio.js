@@ -7,6 +7,10 @@ class Portfolio {
     this.shares.set(symbol, (this.shares.get(symbol) || 0) + shares);
   }
 
+  sell(symbol, shares) {
+    this.shares.set(symbol, this.shares.get(symbol) - shares);
+  }
+
   isEmpty() {
     return this.shares.size === 0;
   }
